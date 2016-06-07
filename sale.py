@@ -13,8 +13,7 @@ __all__ = ['Sale', 'SaleLine']
 class Sale:
     __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
-    lines_tree = fields.Function(fields.One2Many('sale.line',
-            'sale', 'Lines',
+    lines_tree = fields.Function(fields.One2Many('sale.line', None, 'Lines',
             domain=[
                 ('parent', '=', None),
                 ]),
@@ -38,15 +37,6 @@ class Sale:
                 'lines': value,
                 })
 
-    @fields.depends('lines', 'lines_tree', methods=['lines'])
-    def on_change_lines_tree(self, name=None):
-        lines = self.lines
-        self.lines = self.lines_tree
-        self.on_change_lines()
-        self.lines_tree = self.lines
-        self.lines = lines
-
-
     @classmethod
     def copy(cls, sales, default=None):
         pool = Pool()
@@ -67,27 +57,17 @@ class SaleLine(ChapterMixin):
     __name__ = 'sale.line'
 
     parent = fields.Many2One('sale.line', 'Parent', select=True,
-        left='left', right='right', ondelete='CASCADE',
+        ondelete='CASCADE',
         domain=[
             ('sale', '=', Eval('sale')),
             ('type', '=', 'title'),
             ],
         depends=['sale'])
-    left = fields.Integer('Left', required=True, select=True)
-    right = fields.Integer('Right', required=True, select=True)
-    childs = fields.One2Many('sale.line', 'parent', 'Childs',
+    childs = fields.One2Many('sale.line', 'parent', 'Children',
         domain=[
             ('sale', '=', Eval('sale')),
             ],
         depends=['sale'])
-
-    @staticmethod
-    def default_left():
-        return 0
-
-    @staticmethod
-    def default_right():
-        return 0
 
     def get_amount(self, name):
         if self.parent and (self.type == 'subtotal'
