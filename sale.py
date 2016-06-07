@@ -16,7 +16,8 @@ class Sale:
     lines_tree = fields.Function(fields.One2Many('sale.line', None, 'Lines',
             domain=[
                 ('parent', '=', None),
-                ]),
+                ('sale', '=', Eval('id')),
+                ], depends=['id']),
         'get_lines_tree', setter='set_lines_tree')
 
     @classmethod
@@ -26,7 +27,7 @@ class Sale:
             cls.lines_tree._field.domain.extend(cls.lines.domain)
         cls.lines_tree._field.states = cls.lines.states
         cls.lines_tree._field.context = cls.lines.context
-        cls.lines_tree._field.depends = cls.lines.depends
+        cls.lines_tree._field.depends += cls.lines.depends
 
     def get_lines_tree(self, name):
         return [x.id for x in self.lines if not x.parent]
@@ -68,6 +69,12 @@ class SaleLine(ChapterMixin):
             ('sale', '=', Eval('sale')),
             ],
         depends=['sale'])
+
+    @classmethod
+    def __setup__(cls):
+        super(SaleLine, cls).__setup__()
+        cls.product.states['readonly'] = False
+        cls.quantity.states['readonly'] = False
 
     def get_amount(self, name):
         if self.parent and (self.type == 'subtotal'
