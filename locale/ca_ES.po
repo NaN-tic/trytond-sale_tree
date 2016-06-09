@@ -1,0 +1,27 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.line,chapter_number:"
+msgid "Chapter Number"
+msgstr "Número capítol"
+
+msgctxt "field:sale.line,childs:"
+msgid "Childs"
+msgstr "Fills"
+
+msgctxt "field:sale.line,left:"
+msgid "Left"
+msgstr "Esquerra"
+
+msgctxt "field:sale.line,parent:"
+msgid "Parent"
+msgstr "Pare"
+
+msgctxt "field:sale.line,right:"
+msgid "Right"
+msgstr "Dreta"
+
+msgctxt "field:sale.sale,lines_tree:"
+msgid "Lines"
+msgstr "Línies"
