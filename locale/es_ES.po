@@ -7,20 +7,12 @@ msgid "Chapter Number"
 msgstr "Número capítulo"
 
 msgctxt "field:sale.line,childs:"
-msgid "Childs"
+msgid "Children"
 msgstr "Hijos"
-
-msgctxt "field:sale.line,left:"
-msgid "Left"
-msgstr "Izquierda"
 
 msgctxt "field:sale.line,parent:"
 msgid "Parent"
 msgstr "Padre"
-
-msgctxt "field:sale.line,right:"
-msgid "Right"
-msgstr "Derecha"
 
 msgctxt "field:sale.sale,lines_tree:"
 msgid "Lines"
