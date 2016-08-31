@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Bool, Eval
 from trytond.modules.account_invoice_tree.invoice import ChapterMixin
 
 __all__ = ['Sale', 'SaleLine']
@@ -55,7 +55,6 @@ class Sale:
 class SaleLine(ChapterMixin):
     __metaclass__ = PoolMeta
     __name__ = 'sale.line'
-
     parent = fields.Many2One('sale.line', 'Parent', select=True,
         ondelete='CASCADE',
         domain=[
